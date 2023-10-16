@@ -1,8 +1,7 @@
 import numpy as np
 import cv2
 
-def canny_bordering(img):
-    image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+def canny_bordering(image):
     image_smoothed = cv2.GaussianBlur(image, (7, 7), 1)
     sobelx = cv2.Sobel(image_smoothed, cv2.CV_64F, 1, 0, ksize=3)
     sobely = cv2.Sobel(image_smoothed, cv2.CV_64F, 0, 1, ksize=3)   

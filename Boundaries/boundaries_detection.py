@@ -42,8 +42,8 @@ def moore_boundary_detection(image: np.ndarray) -> [[int, int]]:
         else:
             break
     boundary = boundary[:-1]
+    img_res = np.copy(image)
     for i in range(len(boundary)):
-        boundary[i][0] = boundary[i][0]-1
-        boundary[i][1] = boundary[i][1]-1
-    return boundary
+        img_res[boundary[i][0]-1][boundary[i][1]-1] = 255
+    return img_res
 
