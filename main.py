@@ -4,6 +4,7 @@ from Thresholding import otsu
 from Boundaries import boundaries_detection
 from Borders import border_detection
 from Color import space_color
+from Boundaries import freeman_chain_code 
 if __name__ == "__main__":
     pacman = cv2.imread('images/pacman.png')
     daltonism = cv2.imread('images/daltonismo.png')
@@ -48,3 +49,31 @@ if __name__ == "__main__":
     #Se guardan las imagenes en la carpeta de resultados
     cv2.imwrite('Results/pacman.png',pacman_boundary)
     cv2.imwrite('Results/daltonismo.png',daltonism_boundary)
+
+    #Pruebas del algoritmo de cadenas de Freeman
+    # Carga la imagen binaria de bordes
+    image_path = "Results/daltonismo.png"
+    binary_image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+
+    
+
+    chain_code = freeman_chain_code.calculate_chain_code(binary_image)
+    chain1, first_difference1, menor_magnitud1 = freeman_chain_code.imprimir_cadena(chain_code.copy())
+    result_image = freeman_chain_code.dibujar_borde(binary_image, chain_code)
+    cv2.imshow("Image with Freeman Chain Code", result_image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+    #Se rota la imagen 90 grados para comparar
+    rotated_image = cv2.rotate(binary_image, cv2.ROTATE_90_CLOCKWISE)
+    chain_code = freeman_chain_code.calculate_chain_code(rotated_image)
+    chain2, first_difference2, menor_magnitud2 = freeman_chain_code.imprimir_cadena(chain_code.copy())
+    result_image = freeman_chain_code.dibujar_borde(rotated_image, chain_code)
+    cv2.imshow("Image with Freeman Chain Code", result_image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+    #Se comparan los resultados
+    print("Comparación de resultados:")
+    print("Menor magnitud:", menor_magnitud1 == menor_magnitud2)
