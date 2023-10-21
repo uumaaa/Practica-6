@@ -44,3 +44,7 @@ if __name__ == "__main__":
     plt.subplot(2,4,8)
     plt.imshow(daltonism_boundary,cmap="nipy_spectral")
     plt.show()
+
+    #Se guardan las imagenes en la carpeta de resultados
+    cv2.imwrite('Results/pacman.png',pacman_boundary)
+    cv2.imwrite('Results/daltonismo.png',daltonism_boundary)
